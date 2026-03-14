@@ -82,14 +82,12 @@ export function calcEMI(
   for (let yr = 1; yr <= years; yr++) {
     const openingBalance = balance
     let interestForYear = 0
-    let principalForYear = 0
 
     for (let m = 0; m < 12; m++) {
       if (balance <= 0) break
       const monthInterest = balance * monthlyRate
       const monthPrincipal = emi - monthInterest
       interestForYear += monthInterest
-      principalForYear += monthPrincipal
       balance = Math.max(0, balance - monthPrincipal)
     }
 
@@ -148,7 +146,6 @@ function App() {
   const rows = savings?.rows ?? loan?.rows ?? []
   const principalPct = totalAmount > 0 ? (principal / totalAmount) * 100 : 0
   const interestPct = 100 - principalPct
-console.log(interestPct,"nikhil")
   return (
     <div className="calculator">
       <h1>Bank calculator</h1>
