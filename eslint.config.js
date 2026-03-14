@@ -8,7 +8,12 @@ export default defineConfig([
   { files: ["**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"], plugins: { js }, extends: ["js/recommended"], languageOptions: { globals: globals.browser } },
   tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,
-   {
+   { 
+    settings: {
+      react: {
+        version: "detect",   // ← add this
+      },
+    },
     rules: {
       // 1. Fixes the "React must be in scope" error for modern React (Vite)
       "react/react-in-jsx-scope": "off",

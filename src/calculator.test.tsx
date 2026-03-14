@@ -212,3 +212,25 @@ it('summary cards show correct labels in savings mode', () => {
     expect(screen.getByText('Total interest')).toBeInTheDocument()
   })
 })
+
+
+describe('Greeting bar', () => {
+  it('renders the greeting bar', () => {
+    render(<App />)
+    expect(screen.getByTestId('greeting')).toBeInTheDocument()
+    expect(screen.getByTestId('clock')).toBeInTheDocument()
+  })
+ 
+  it('greeting contains a valid greeting phrase', () => {
+    render(<App />)
+    const greeting = screen.getByTestId('greeting').textContent ?? ''
+    const validGreetings = ['Good morning', 'Good afternoon', 'Good evening', 'Good night']
+    expect(validGreetings.some(g => greeting.includes(g))).toBe(true)
+  })
+ 
+  it('clock shows time in correct format', () => {
+    render(<App />)
+    const clock = screen.getByTestId('clock').textContent ?? ''
+    expect(clock).toMatch(/\d{1,2}:\d{2}:\d{2}/)
+  })
+})
