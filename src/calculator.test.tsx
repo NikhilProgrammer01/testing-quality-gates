@@ -1,6 +1,8 @@
 import { describe, it, expect } from 'vitest'
 import { calcSavings, calcEMI, formatINR } from './App'
-
+import { render, screen, fireEvent } from '@testing-library/react'
+import '@testing-library/jest-dom'
+import App from './App'
 // ─── calcSavings ──────────────────────────────────────────────────────────────
 
 describe('calcSavings', () => {
@@ -164,5 +166,48 @@ describe('formatINR', () => {
 
   it('handles zero', () => {
     expect(formatINR(0)).toBe('₹0')
+  })
+})
+// ─── App component ───────────────────────────────────────────────────────────
+
+describe('App component', () => {
+  it('renders in savings mode by default', () => {
+    render(<App />)
+    expect(screen.getByText('Savings / FD')).toBeInTheDocument()
+    expect(screen.getByLabelText('Principal (₹)')).toBeInTheDocument()
+  })
+
+  it('switches to loan mode when tab is clicked', () => {
+    render(<App />)
+    fireEvent.click(screen.getByRole('button', { name: 'Loan / EMI' }))
+    expect(screen.getByLabelText('Loan amount (₹)')).toBeInTheDocument()
+    expect(screen.getByText('Total payable')).toBeInTheDocument()
+  })
+
+  it('shows EMI note only in loan mode', () => {
+    render(<App />)
+    expect(screen.queryByText(/Monthly EMI/)).not.toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: 'Loan / EMI' }))
+    expect(screen.getByText(/Monthly EMI/)).toBeInTheDocument()
+  })
+
+  it('compounding select is visible in savings mode only', () => {
+    render(<App />)
+    expect(screen.getByLabelText('Compounding')).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: 'Loan / EMI' }))
+    expect(screen.queryByLabelText('Compounding')).not.toBeInTheDocument()
+  })
+
+  it('summary cards show correct labels in savings mode', () => {
+    render(<App />)
+    expect(screen.getByText('Maturity amount')).toBeInTheDocument()
+    expect(screen.getByText('Interest earned')).toBeInTheDocument()
+  })
+
+  it('summary cards show correct labels in loan mode', () => {
+    render(<App />)
+    fireEvent.click(screen.getByRole('button', { name: 'Loan / EMI' }))
+    expect(screen.getByText('Total payable')).toBeInTheDocument()
+    expect(screen.getByText('Total interest')).toBeInTheDocument()
   })
 })
