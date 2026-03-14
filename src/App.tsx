@@ -148,7 +148,7 @@ function App() {
   const rows = savings?.rows ?? loan?.rows ?? []
   const principalPct = totalAmount > 0 ? (principal / totalAmount) * 100 : 0
   const interestPct = 100 - principalPct
-
+console.log(interestPct,"nikhil")
   return (
     <div className="calculator">
       <h1>Bank calculator</h1>
