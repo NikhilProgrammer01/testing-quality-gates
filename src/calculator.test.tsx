@@ -198,11 +198,12 @@ describe('App component', () => {
     expect(screen.queryByLabelText('Compounding')).not.toBeInTheDocument()
   })
 
-  it('summary cards show correct labels in savings mode', () => {
-    render(<App />)
-    expect(screen.getByText('Maturity amount')).toBeInTheDocument()
-    expect(screen.getByText('Interest earned')).toBeInTheDocument()
-  })
+it('summary cards show correct labels in savings mode', () => {
+  render(<App />)
+  const cards = screen.getByText('Maturity amount').closest('.summary-cards')
+  expect(cards).toHaveTextContent('Maturity amount')
+  expect(cards).toHaveTextContent('Interest earned')
+})
 
   it('summary cards show correct labels in loan mode', () => {
     render(<App />)
