@@ -165,7 +165,7 @@ function App() {
   return (
     <>
       <div className="greeting-bar">
-        <span data-testid="greeting">{getGreeting(now.getHours())}, have a great dayyy!</span>
+        <span data-testid="greeting">{getGreeting(now.getHours())}, have a great dayyylll!</span>
         <span data-testid="clock">{formatTime(now)}</span>
       </div>
 
