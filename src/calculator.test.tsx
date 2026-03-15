@@ -218,7 +218,7 @@ describe('Greeting bar', () => {
   it('renders the greeting bar', () => {
     render(<App />)
     expect(screen.getByTestId('greeting')).toBeInTheDocument()
-    expect(screen.getByTestId('clockk')).toBeInTheDocument()
+    expect(screen.getByTestId('clock')).toBeInTheDocument()
   })
  
   it('greeting contains a valid greeting phrase', () => {
@@ -230,7 +230,7 @@ describe('Greeting bar', () => {
  
   it('clock shows time in correct format', () => {
     render(<App />)
-    const clock = screen.getByTestId('clockk').textContent ?? ''
+    const clock = screen.getByTestId('clock').textContent ?? ''
     expect(clock).toMatch(/\d{1,2}:\d{2}:\d{2}/)
   })
 })
