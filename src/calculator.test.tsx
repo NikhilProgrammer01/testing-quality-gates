@@ -217,7 +217,7 @@ it('summary cards show correct labels in savings mode', () => {
 describe('Greeting bar', () => {
   it('renders the greeting bar', () => {
     render(<App />)
-    expect(screen.getByTestId('greetinggg')).toBeInTheDocument()
+    expect(screen.getByTestId('greetingggg')).toBeInTheDocument()
     expect(screen.getByTestId('clock')).toBeInTheDocument()
   })
  
